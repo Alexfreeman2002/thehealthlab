@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form  class="form" method="get">
+        <div>
+            {{ form.csrf_token() }}
+            <div>
+                {{ form.blog(class="input", placeholder="Begin your blog") }}
+                {% for error in form.entry_date.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+
+
+    </form>
+</body>
+</html>

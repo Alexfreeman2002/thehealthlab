@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="full-width full-page padding">
+    <div class="container form-container">
+        <h1>Quiz</h1>
+        {% if form %}
+            <form  class="form" method="post">
+                <div>
+                    {{ form.csrf_token() }}
+                    <div>
+                        {{ form.number_of_questions }}
+                        {% for error in form.number_of_questions.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div>{{ form.submit() }}</div>
+            </form>
+        {% endif %}
+    </div>
+    {% if questions %}
+
+        <div id="quiz-container" class="quiz-container revealed">
+            <!-- CODE ITERATE OVER QUESTIONS TO DISPLAY -->
+            {% set counter = 0 %}
+            {% for question in questions %}
+                {% set counter = loop.index %}
+                <div>
+                    <h3>{{ question['text'] }}</h3>
+                    {% for choice in question['choices'] %}
+                        <div>
+                            <input type="radio" name="answer_{{ counter }}" value="{{ loop.index }}">
+                            <label>{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button id="submit-answers" type="button" class="button one">Submit Answers</button>
+        </div>
+    {% endif %}
+
+    <div id="quiz-result-container" class="container quiz-container">
+        <h1>Quiz Result</h1>
+        <h3 id="quiz-score"></h3>
+        <button id="redo-quiz" class="button one">Redo Quiz</button>
+      </div>
+</div>
+
+<script>
+    // Wait for the DOM content to load
+    window.addEventListener('DOMContentLoaded', function() {
+        console.log("JavaScript code executed");
+        const quizContainer = document.getElementById("quiz-container");
+        const quizResultContainer = document.getElementById("quiz-result-container");
+        const quizScore = document.getElementById("quiz-score");
+        const redoQuizButton = document.getElementById("redo-quiz");
+        const submitButton = document.getElementById("submit-answers");
+        const quiz_questions = JSON.parse('{{ questions_json|safe }}');
+
+
+        function calculateScore(questions) {
+            let score = 0;
+            const checkedElements = document.querySelectorAll('input:checked');
+
+            for (let i = 0; i < questions.length; i++) {
+                    if (checkedElements[i].value == questions[i]['correct_answer']) {
+                        score++;
+                    }
+            }
+            return score;
+        }
+
+
+        function showQuizResult(score, totalQuestions) {
+            quizContainer.classList.toggle('revealed')
+            quizScore.textContent = "You scored " + score + " out of " + totalQuestions + " questions.";
+            quizResultContainer.classList.toggle('revealed')
+        }
+
+        submitButton.addEventListener("click", function() {
+            if (document.querySelectorAll('input:checked').length !== quiz_questions.length) {
+                alert('Provide an answer for ALL questions')
+            } else {
+                const score = calculateScore(quiz_questions);
+            showQuizResult(score, quiz_questions.length);
+            }
+        });
+
+        redoQuizButton.addEventListener("click", function() {
+            quizResultContainer.classList.toggle('revealed')
+        });
+    });
+</script>
+{% endblock %}
+
+

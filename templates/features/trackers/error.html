@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="full-width full-page padding">
+        <div class="container form-container">
+            <h1>Error</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+        </div>
+    </div>
+{% endblock %}

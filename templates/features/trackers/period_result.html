@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="full-width full-page padding">
+        <div class="container form-container">
+            <h1>Your next period</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% if form %}
+                <form  class="form" method="get">
+                    <div>
+                        {{ form.csrf_token() }}
+                        <div>
+                            <p>Next start date</p>
+                            {{ form.next_start_date(class="input", placeholder="next start date") }}
+                            {% for error in form.next_start_date.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <p>Next end date</p>
+                            {{ form.next_end_date(class="input", placeholder="next end date") }}
+                            {% for error in form.next_end_date.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <p>Date of ovulation</p>
+                            {{ form.ovulation(class="input", placeholder="ovulation") }}
+                            {% for error in form.ovulation.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <h5 style="color:#CC2020">* TIP: There is no scientific basis for the concept of a "safe period" in terms of fertility. If there are no plans for conception, it is important to take appropriate contraceptive measures.</h5>
+
+                    <div>{{ form.submit() }}</div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

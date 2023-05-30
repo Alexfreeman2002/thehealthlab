@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="full-width full-page padding">
+        <div class="container form-container">
+            <h1>BMI Calculator</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% if form %}
+                <form  class="form" method="post">
+                    <div>
+                        {{ form.csrf_token() }}
+                        <div>
+                            {{ form.height.label }} {{ form.height(class="input", placeholder="Height") }}
+                            {% for error in form.height.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                        <div>
+                            {{ form.h_units(class="input", placeholder="Input cm or feet") }}
+                            {% for error in form.h_units.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            {{ form.weight.label }} {{ form.weight(class="input", placeholder="Weight") }}
+                            {% for error in form.weight.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                        <div>
+                            {{ form.w_units(class="input", placeholder="Input kg or lbs") }}
+                            {% for error in form.w_units.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>{{ form.submit() }}</div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

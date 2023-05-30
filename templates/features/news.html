@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="full-width padding">
+      <div class="news-container" id="news-container">
+        <h1>NHS News Blog</h1>
+        {% for article in articles %}
+          <div class="news-box content">
+            <b><a href="{{ article.link }}">{{ article.title }}</a></b><br>
+            <span>{{ article.published }}</span>
+            <p>{{ article.summary }}</p>
+          </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

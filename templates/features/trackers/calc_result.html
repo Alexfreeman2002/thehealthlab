@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="full-width full-page padding">
+        <div class="container form-container">
+            <h1>Your Daily Calories</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% if form %}
+                <form  class="form" method="get">
+                    <div>
+                        {{ form.csrf_token() }}
+                        <div>
+                            <p>Calories</p>
+                            {{ form.calories(class="input", placeholder="Calories") }}
+                            {% for error in form.calories.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <h5 style="color:#CC2020">* TIP: Generally, the recommended daily calorie intake is 2,000 calories a day for women and 2,500 for men</h5>
+
+                    <div>{{ form.submit() }}</div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

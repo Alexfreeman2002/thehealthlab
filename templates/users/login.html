@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="full-width full-page padding">
+        <div class="container form-container">
+            <h1>Login</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% if form %}
+                <form  class="form" method="post">
+                    <div>
+                        {{ form.csrf_token() }}
+                        <div>
+                            {{ form.email(class="input", placeholder="Email") }}
+                            {% for error in form.email.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            {{ form.password(class="input", placeholder="Password") }}
+                            {% for error in form.password.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            {{ form.pin(class="input", placeholder="PIN") }}
+                        </div>
+                    </div>
+
+                    <div>
+                        {{ form.recaptcha }}
+                    </div>
+
+                    <div>{{ form.submit() }}</div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if session.get('pinkey') %}
+        {% set key = session.get('pinkey') %}
+        <script>
+            function showPinkey(pin) {
+                if (pin) {
+                    alert('Registered Successfully! \n\n' +
+                        'NOTE: Your pin will only be shown ONCE, so please record it down. \n\n' +
+                        'Your pinkey is: ' + pin);
+                }
+            }
+            showPinkey('{{ key }}');
+        </script>
+        {% set _ = session.pop('pinkey', None) %}
+    {% endif %}
+{% endblock %}

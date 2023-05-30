@@ -1,0 +1,15 @@
+$colours: (
+    elements: #FFFFFF,
+    elements-light: #EEE6CC,
+    elements-dark: #413b2d,
+    bg: #AEBD8F,
+    bg-secondary: #8DAC75,
+    alert: #a33a3a,
+    box: #60789d,
+    news-desc: #666666
+);
+
+
+@function colour($colour-name) {
+    @return map-get($colours, $colour-name);
+}

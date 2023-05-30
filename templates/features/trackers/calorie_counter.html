@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="full-width full-page padding">
+        <div class="container form-container">
+            <h1>Calorie Counter</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% if form %}
+                <form  class="form" method="post">
+                    <div>
+                        {{ form.csrf_token() }}
+                        <div>
+                            {{ form.entry_date(class="date_input", placeholder="Entry Date") }}
+                            {% for error in form.entry_date.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            {{ form.calories(class="input", placeholder="Calories") }}
+                            {% for error in form.calories.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                    <input type="submit" name="action" value="Add to existing entry">
+                    </div>
+                    <div>
+                    <input type="submit" name="action" value="Create new entry">
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+        <div class="container form-container">
+        <h4 class="title is-4">Entries</h4>
+        <div class="form">
+            {{ form.csrf_token() }}
+            {% if entries %}
+                <div class="field">
+
+                    {# render entries #}
+                    <tr>Date | Calories</tr>
+                    {% for calories in entries %}
+                    <p></p>
+                    <tr>{{calories.entry_name}} | {{ calories.daily_calories }}</tr>
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+
+            <form class="form" method="POST" action="/view_entries">
+                <div>
+                    <input type="submit" name="action" value="View Entries">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}

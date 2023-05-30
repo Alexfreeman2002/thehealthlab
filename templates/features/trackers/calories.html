@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="full-width full-page padding">
+        <div class="container form-container">
+            <h1>Calorie Calculator</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% if form %}
+                <form  class="form" method="post" action = "/calculator">
+                    <div>
+                        {{ form.csrf_token() }}
+                        <div>
+                            {{ form.carbohydrate(class="input", placeholder="Carbohydrate(grams)") }}
+                            {% for error in form.carbohydrate.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            {{ form.protein(class="input", placeholder="Protein(grams)") }}
+                            {% for error in form.protein.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            {{ form.fat(class="input", placeholder="Fat(grams)") }}
+                            {% for error in form.fat.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>{{ form.submit() }}</div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

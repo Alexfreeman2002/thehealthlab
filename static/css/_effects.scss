@@ -1,0 +1,21 @@
+.nav-hover {
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        margin: auto;
+        width: 100%;
+        height: 2px;
+        background: colour(elements-light);
+        opacity: 0;
+        transform: translateY(5px);
+        transition: 250ms;
+    }
+
+    &:hover::after {
+        opacity: 1;
+        transform: translate(0);
+    }
+}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="full-width full-page padding">
+        <div class="container form-container">
+            <h1>Search</h1>
+            <form class="search-bar in-page" method="POST" action="{{ url_for('search.search_disease') }}">
+                <input type="text" name="search_term" placeholder="Search...">
+            </form>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        {% if search_term != null %}
+            <div class="container results">
+                <h1>Results from NHS: {{ search_term|capitalize }}</h1>
+                <div>
+                    {% if is_successful %}
+                        {{ result|safe }}
+                    {% else %}
+                        <h2>There were no found matches.</h2>
+                        <h4>Similar results:</h4>
+                        {% for similar_result in result %}
+                            <form class="similar-match" method="POST" action="{{ url_for('search.search_disease') }}">
+                                <button class="nav-hover" type="submit" name="search_term" value="{{ similar_result[0] }}">> <u><i>{{ similar_result[0] }}</i></u></button>
+                            </form>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

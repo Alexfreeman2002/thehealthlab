@@ -1,0 +1,170 @@
+@import 'display';
+@import 'colours';
+@import 'fonts';
+@import 'containers';
+@import 'components';
+@import 'effects';
+
+
+// All elements
+* {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    font-family: font(secondary);
+    // transition: border-bottom 250ms;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    background-color: colour(bg);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto 1fr;
+}
+
+
+// Navigation
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    background-color: colour(bg-secondary);
+    display: flex;
+    text-align: center;
+
+    .nav {
+        padding: .5rem 0.75rem;
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        place-items: center;
+
+        @include tablet {
+            grid-template-columns: auto auto 1fr auto auto;
+            padding: 1rem;
+        }
+    }
+
+    .logo {
+        z-index: 2;
+        justify-self: center;
+        align-self: center;
+        width: 3rem;
+
+        @include desktop {
+            width: 4rem;
+        }
+    }
+
+    .title {
+        padding: 0 .75rem;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    a {
+        z-index: 2;
+        text-decoration: none;
+        color: colour(elements);
+    }
+}
+
+
+// mobile menu
+.nav-mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding: 2rem 1rem;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-items: right;
+    align-items: end;
+    background-color: colour(bg-secondary);
+    transform: translateX(100vw);
+    transition: 250ms;
+    text-align: left;
+
+    ul {
+        padding: 0 1rem;
+        align-self: end;
+    }
+
+    li {
+        margin-top: 1rem;
+    }
+
+    &.show {
+        transform: translateX(0);
+    }
+    
+    @include tablet {
+        display: none;
+    }
+}
+
+// desktop menu
+.nav-desktop {
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    display: none;
+    flex-direction: row;
+
+    li {
+        margin: 0 .75rem;
+    }
+
+    @include tablet {
+        display: flex;
+    }
+}
+
+footer {
+    grid-column: 1 / span 6;
+    padding: 1rem;
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: colour(elements);
+    background-color: colour(bg-secondary);
+    text-align: center;
+
+    @include tablet {
+        flex-direction: row;
+    }
+
+    h3 {
+        margin-bottom: .5rem;
+    }
+
+    a {
+        color: colour(elements);
+    }
+  
+  .footer-section {
+    margin: 1rem;
+    width: 1fr;
+    transition: 250ms;
+    border-radius: 8px;
+
+    &:hover {
+        background-color: colour(bg);
+    }
+
+    @include tablet {
+        padding: 1rem;
+    }
+  }
+}

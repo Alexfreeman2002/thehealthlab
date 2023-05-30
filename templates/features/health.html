@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="full-width padding">
+    <div class="container content">
+      <div class="content content-text">
+        <div class="content">
+          <h1>What is Health and Wellbeing?</h1>
+          <p>
+            Health and wellbeing is the state of one's physical, mental, or emotional condition and the lifestyle surrounding it. Rather than it being the absence of disorders, disabilities, or negative conditions, it is the improvement towards the quality of living in order to live a long, productive, and positive life.
+          </p>
+          <h3>Physical Health</h3>
+          <p>
+            Physical health means taking care of our body. It includes things like staying at a healthy weight, doing regular exercise, getting enough sleep, and eating nutritious food. When we are physically healthy, we have the energy to do things and are less likely to get sick.
+          </p>
+          <h3>Mental Health</h3>
+          <p>
+            Mental health is about how we feel and think. It's important to have good mental health so that we can handle stress, have positive relationships, and feel good about ourselves. It's normal to have ups and downs, but taking care of our mental health helps us stay balanced and happy.
+          </p>
+          <h3>Social Wellbeing</h3>
+          <p>
+            Social wellbeing is all about our relationships with other people. It's about having good connections with friends, family, and our community. When we feel connected and supported, it makes us feel happier and less lonely.
+          </p>
+        </div>
+        <div>
+          <div class="box-info content">
+            <h2>Did you know?</h2>
+            <p>
+              Studies have shown that people who maintain strong social connections tend to live longer and have better overall health!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content content-text">
+        <div class="content">
+          <h1>Why does this all matter?</h1>
+          <p>
+            It's important to focus on health and wellbeing because they help us live our best lives. When we take care of ourselves, it keeps our body and mind working well. It helps us handle challenges and enjoy life more. It also makes it easier for us to support and contribute to our communities.
+          </p>
+        </div>
+        <div>
+          <div class="box-info content">
+            <h2>Tip!</h2>
+            <p>
+              Getting regular health check-ups by scheduling routine check-ups and screenings can detect any potential issues early, and get the appropriate preventive care, improving your overall quality of life!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content content-text">
+        <div class="content">
+          <h1>How we are here to help</h1>
+          <p>
+            The Health Lab is here to help you learn more about health and wellbeing. We provide easy-to-use trackers, tips, and health and advice searchers to help you make choices that will improve your health and wellbeing. By learning about these things and making small changes in our daily lives, we can feel better and live happier lives.
+          </p>
+        </div>
+      </div>
+
+      <div class="content">
+        <h1>Help Lines & Advice</h1>
+        <div class="container content helplines urgent">
+          <h2>Call 999 or go to A&E NOW if:</h2>
+          <p><b>
+            Is someone's life is at risk or do you do not feel you can keep yourself or someone else safe?
+          </b></p>
+          <p><b>
+            A mental health emergency should be taken as seriously as a physical one. You will not be wasting anyone's time.
+          </b></p>
+        </div>
+        <div class="container content helplines">
+          <h2>Call 111 or book a GP appointment if:</h2>
+          <p>
+            You have any non-emergency enquiries or any non-urgent health concerns.
+          </p>
+          <p>
+            This service will be able to guide you to the right resource or service to fit your needs
+          </p>
+        </div>
+        <div class="container content helplines">
+          <h2>The Samaritans</h2>
+          <p>
+            You have any non-emergency enquiries or any non-urgent health concerns.
+          </p>
+          <p>
+            This service will be able to guide you to the right resource or service to fit your needs
+          </p>
+        </div>
+        <div class="container content helplines">
+          <h2>Shout Crisis Help Line</h2>
+          <p>
+            Text "SHOUT" to 85258 to contact the Shout Crisis Text Line, or text "YM" if you're under 19
+          </p>
+        </div>
+        <div class="container content helplines">
+          <h2>Childline</h2>
+          <p>
+            If you're under 19, you can also call 0800 1111 to talk to Childline. The number will not appear on your phone bill.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="container results"  id="conditions-symptoms">
+      <h1>Example Conditions and Symptoms</h1>
+      <button onclick="window.location.href='/health'" class="btn">Generate New Example</button>
+      {% for disease in result %}
+      <div class="condition-result">
+        <h2>{{ disease[0] }}</h2>
+        <p>{{ disease[1] }}</p>
+        <h3>Symptoms:</h3>
+        <ul>
+          {% for symptom in disease[2] %}
+          <li>{{ symptom }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

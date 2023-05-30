@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="full-width full-page">
+    <div class="container form-container">
+        <h1>Your Account</h1>
+        <div>
+            <table class="table">
+            <tbody>
+            <tr><th>UID:</th>   <th>{{ id }}</th></tr>
+            <tr><th>Email:</th>   <th>{{ email }}</th></tr>
+            <tr><th>Username:</th>   <th>{{ username }}</th></tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

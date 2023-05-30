@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="/static/scripts/scripts.js" defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name=”robots” content="index, nofollow">
+  <link rel="stylesheet" href="/static/css/main.css"/>
+  <title>The Health Lab</title>
+   <link rel="icon" type="image/png" href="/static/resources/favicon.png"/>
+</head>
+
+<nav class="full-width">
+  <div class="nav">
+    <img src="/static/resources/lab-flask.svg" alt="Organisation Logo" class="logo">
+    <a href="{{ url_for('index') }}" class="title"><h2>The Health Lab</h2></a>
+    <ul class="nav-desktop">
+      <li><a href="{{ url_for('health.health') }}" class="link nav-hover">Health</a></li>
+      <li><a href="{{ url_for('news.news') }}" class="link nav-hover">News</a></li>
+      <li><a href="{{ url_for('Quiz.quiz') }}" class="link nav-hover">Quiz</a></li>
+      <li class="dropdown">
+        <a href="#" class="link nav-hover">Track</a>
+        <ul class="dropdown-list">
+          <li><a href="{{ url_for('BMI.bmi') }}" class="link nav-hover">BMI Calculator</a></li>
+          <li><a href="{{ url_for('calories.calorie_calculator') }}" class="link nav-hover">Calorie Calculator</a></li>
+          <li><a href="{{ url_for('calories.calorie_counter') }}" class="link nav-hover">Calorie Counter</a></li>
+          <li><a href="{{ url_for('period_tracker.period_tracker') }}" class="link nav-hover">Period Tracker</a></li>
+        </ul>
+        <div class="dropdown-icon"></div>
+      </li>
+    </ul>
+    <ul class="nav-desktop">
+      {% if current_user.is_authenticated and current_user.role == 'admin' %}
+        <li><a href="{{ url_for('admin.admin') }}" class="link nav-hover">Admin</a></li>
+      {% endif %}
+
+      {% if current_user.is_authenticated and (current_user.role == 'user' or
+                                               current_user.role == 'admin') %}
+        <li><a href="{{ url_for('users.account') }}" class="link nav-hover">Account</a></li>
+      {% endif %}
+
+      {% if current_user.is_authenticated and (current_user.role == 'user' or
+                                               current_user.role == 'admin') %}
+        <li><a href="{{ url_for('users.logout') }}" class="link nav-hover">Logout</a></li>
+      {% endif %}
+
+      {% if current_user.is_anonymous %}
+        <li><a href="{{ url_for('users.login') }}" class="link nav-hover">Login</a></li>
+      {% endif %}
+
+      {% if current_user.is_anonymous %}
+        <li><a href="{{ url_for('users.register') }}" class="link nav-hover">Sign-up</a></li>
+      {% endif %}
+
+    </ul>
+    <form class="search-bar" method="POST" action="{{ url_for('search.search_disease') }}">
+        <input type="text" name="search_term" placeholder="Search...">
+    </form>
+    <div class="menu-icon">
+      <span class="one"></span>
+      <span class="two"></span>
+    </div>
+  </div>
+  <div id="nav-mobile" class="nav-mobile">
+    <ul>
+      <li><a href="{{ url_for('health.health') }}" class="link nav-hover">Health</a></li>
+      <li class="dropdown">
+        <a href="#" class="link nav-hover">Track</a>
+        <ul class="dropdown-list">
+          <li><a href="{{ url_for('BMI.bmi') }}" class="link nav-hover">BMI Calculator</a></li>
+          <li><a href="{{ url_for('calories.calorie_calculator') }}" class="link nav-hover">Calorie Calculator</a></li>
+          <li><a href="{{ url_for('calories.calorie_counter') }}" class="link nav-hover">Calorie Counter</a></li>
+          <li><a href="{{ url_for('period_tracker.period_tracker') }}" class="link nav-hover">Period Tracker</a></li>
+        </ul>
+        <div class="dropdown-icon"></div>
+      </li>
+
+      <li><a href="{{ url_for('Quiz.quiz') }}" class="link nav-hover">Quiz</a></li>
+      <li><a href="{{ url_for('news.news') }}" class="link nav-hover">News</a></li>
+
+      {% if current_user.is_authenticated and current_user.role == 'admin' %}
+        <li><a href="{{ url_for('admin.admin') }}" class="link nav-hover">Admin</a></li>
+      {% endif %}
+
+      {% if current_user.is_authenticated and (current_user.role == 'user' or
+                                               current_user.role == 'admin') %}
+        <li><a href="{{ url_for('users.account') }}" class="link nav-hover">Account</a></li>
+      {% endif %}
+
+      {% if current_user.is_authenticated and (current_user.role == 'user' or
+                                               current_user.role == 'admin') %}
+        <li><a href="{{ url_for('users.logout') }}" class="link nav-hover">Logout</a></li>
+      {% endif %}
+
+      {% if current_user.is_anonymous %}
+        <li><a href="{{ url_for('users.login') }}" class="link nav-hover">Login</a></li>
+      {% endif %}
+
+      {% if current_user.is_anonymous %}
+        <li><a href="{{ url_for('users.register') }}" class="link nav-hover">Sign-up</a></li>
+      {% endif %}
+
+      <li><a href="{{ url_for('search.search_disease') }}" class="link nav-hover">Search</a></li>
+    </ul>
+  </div>
+</nav>
+
+<body>
+  {% block content %}
+  {% endblock %}
+</body>
+<footer>
+    <div class="footer-section">
+      <a href="{{ url_for('index') }}" class="title"><h3>The Health Lab</h3></a>
+      <p>@Copyright 2023<p>
+    </div>
+
+    <div class="footer-section">
+      <a href="#"><h3>Contact us</h3></a>
+      <p>Email: thehealthlab2023@outlook.com</p>
+    </div>
+
+    <div class="footer-section">
+      <a href="#"><h3>Follow us</h3></a>
+      <script src="/static/scripts/insta.js"></script>
+      <a href="https://www.instagram.com/" target="_blank"><img src="/static/resources/instagram.svg"></a>
+      <script src="/static/scripts/facebook.js"></script>
+      <a href="https://www.facebook.com/" target="_blank"><img src="/static/resources/facebook.svg"></a>
+      <script src="/static/scripts/twitter.js"></script>
+      <a href="https://twitter.com/" target="_blank"><img src="/static/resources/twitter.svg"></a>
+    </div>
+</footer>
+</html>

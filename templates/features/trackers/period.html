@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="full-width full-page padding">
+        <div class="container form-container">
+            <h1>Period Tracker</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% if form %}
+                <form  class="form" method="post">
+                    <div>
+                        {{ form.csrf_token() }}
+                        <div>
+                            <p>Start date</p>
+                            {{ form.start_date(class="date_input", placeholder="Start date") }}
+                            {% for error in form.start_date.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <p>End date</p>
+                            {{ form.end_date(class="date_input", placeholder="End date") }}
+                            {% for error in form.end_date.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <p>Period duration</p>
+                            {{ form.period_duration(class="input", placeholder="Days") }}
+                            {% for error in form.period_duration.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <p>Period cycle</p>
+                            {{ form.period_cycle(class="input", placeholder="Days") }}
+                            {% for error in form.period_cycle.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>{{ form.submit() }}</div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

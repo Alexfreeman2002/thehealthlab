@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="full-width padding">
+        <div class="container content">
+            <h1>Admin Dashboard</h1>
+            <h3>Current Users:</h3>
+            {% if current_users %}
+                <div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Registered</th>
+                                <th>Logged In</th>
+                            </tr>
+                            {% for user in current_users %}
+                                    <tr>
+                                        <td>{{ user.id }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{{ user.role }}</td>
+                                        <td>{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                                        {% if user.current_login %}
+                                            <td>{{ user.current_login.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                                        {% else %}
+                                            <td>Not yet logged in</td>
+                                        {% endif %}
+                                    </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            <form method="POST" action="/view_all_users">
+                <div><button class="button one">View All Users</button></div>
+            </form>
+        </div>
+
+        <div class="container content">
+            <h3>Recent Logs</h3>
+            {% if logs %}
+                <div>
+                    <table class="table">
+                    <tr>
+                        <th>Last 10 Security Log Entries</th>
+                    </tr>
+                    {% for entry in logs %}
+                        <tr>
+                            <td>{{ entry }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                </div>
+            {% endif %}
+            <form method="POST" action="/logs">
+                <div><button class="button one">View Security Logs</button></div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

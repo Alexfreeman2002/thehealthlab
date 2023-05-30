@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="full-width padding">
+    <div class="news-container" id="news-container">
+      <button class="one">
+        <img src="static/resources/search.svg">
+        <a href="{{ url_for('news.news') }}">Explore more
+        </a>
+        <img src="/static/resources/fi-rr-arrow-right.svg">
+      </button>
+      <!-- <div class="news-box">
+        <h2>Title of Article</h2>
+        <p>Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc </p>
+      </div> -->
+    </div>
+    <ul class="feature-quick-access">
+      <li>
+        <button class="two">
+          <img src="/static/resources/bmi.svg" alt="bmi">
+          <a href="{{ url_for('BMI.bmi') }}">BMI Calculator</a>
+        </button>
+      </li>
+      <li>
+        <button class="two">
+          <img src="/static/resources/calculator.svg" alt="calculator">
+          <a href="{{ url_for('calories.calorie_calculator') }}">Calorie Calculator</a>
+        </button>
+      </li>
+      <li>
+        <button class="two">
+          <img src="/static/resources/calorie.svg" alt="calorie">
+          <a href="{{ url_for('calories.calorie_counter') }}">Calorie Counter</a>
+        </button>
+      </li>
+      <li>
+        <button class="two">
+          <img src="/static/resources/period.svg" alt="period">
+          <a href="{{ url_for('period_tracker.period_tracker') }}">Period Tracker</a>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- api reference: https://gnews.io/docs/v4?javascript#top-headlines-query-parameters -->
+  <script>
+    var apikey = 'c85d9b57e2349444885af3a5da2ad676';
+    var category = 'health';
+    var url = 'https://gnews.io/api/v4/top-headlines?category=' + category + '&lang=en&country=us&max=10&apikey=' + apikey;
+
+    fetch(url)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        var articles = data.articles;
+        var newsContainer = document.getElementById('news-container');
+
+        for (var i = 0; i < Math.min(3, articles.length); i++) {
+          var article = articles[i];
+          console.log("Title: " + article.title);
+          console.log("Description: " + article.description);
+          console.log("Published At: " + article.publishedAt);
+          console.log("Picture:" + article.img);
+
+          var newsBox = document.createElement('div');
+          newsBox.classList.add('news-box');
+
+          var newsTitle = document.createElement('h2');
+          newsTitle.textContent = article.title;
+
+          var newsDescription = document.createElement('p');
+          newsDescription.textContent = article.description;
+
+          var newspublishedAt = document.createElement('p');
+          newspublishedAt.textContent = article.publishedAt;
+
+          // var newsPicture = document.createElement('pic');
+          // newsPicture.img.add('news-pic');
+          // newsPicture.img = article.img;
+
+          newsBox.appendChild(newsTitle);
+          newsBox.appendChild(newsDescription);
+          newsBox.appendChild(newspublishedAt);
+          // newsBox.appendChild(newsPicture);
+
+          newsContainer.appendChild(newsBox);
+        }
+      });
+  </script>
+{% endblock %}
